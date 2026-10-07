@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La familia es una mierda</title>
-<meta name="description" content="Carta de Oduvaldo para Genoveva, con dos finales: el epílogo «Los que todavía recuerdan» y una versión adaptada con nuevos personajes.">
+<meta name="description" content="Carta de Oduvaldo para Genoveva y su final: una versión adaptada con nuevos personajes.">
 <meta property="og:title" content="La familia es una mierda — Carta de Oduvaldo para Genoveva">
 <meta property="og:description" content="El que se perdió por esconderte y se encontró cuando te tuvo delante de todos.">
 <meta name="theme-color" content="#141113">
@@ -140,25 +140,6 @@
   .sign { margin-top: 4.5rem; text-align: right; font-style: italic; line-height: 2.4; }
   .sign .who { font-family: var(--display); font-size: 1.5em; color: var(--red-ink); display: block; }
 
-  /* Selector de final */
-  .choose { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .choose button {
-    background: transparent; border: 0; color: var(--ink-dim); cursor: pointer; text-align: left;
-    padding: 1.8rem 1.6rem 2rem; font: inherit; position: relative;
-    transition: color .3s var(--ease-out), background-color .3s;
-  }
-  .choose button + button { border-left: 1px solid var(--line); }
-  .choose button::after {
-    content: ""; position: absolute; left: 1.6rem; right: 1.6rem; bottom: -1px; height: 1px;
-    background: var(--red-ink); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out);
-  }
-  .choose button[aria-selected="true"] { color: var(--ink); }
-  .choose button[aria-selected="true"]::after { transform: scaleX(1); }
-  .choose button:hover { background: var(--bg-raise); color: var(--ink); }
-  .choose b { display: block; font-family: var(--display); font-weight: 500; font-size: 1.55rem; line-height: 1.15; color: var(--ink-strong); margin-bottom: .5rem; }
-  .choose button[aria-selected="false"] b { color: var(--ink-dim); }
-  .choose span { font-style: italic; font-size: .98rem; line-height: 1.55; display: block; }
-
   /* Personajes */
   .cast { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem; }
   .cast li { padding: 1.5rem 0; border-top: 1px solid var(--line); }
@@ -281,139 +262,9 @@
 
   <hr class="rule wide">
 
-  <section class="wide" aria-labelledby="t-finales">
-    <h2 id="t-finales" class="reveal">Dos finales posibles</h2>
-    <p class="lede reveal">La misma carta, dos destinos. Elige cuál leer; puedes volver por el otro.</p>
-
-    <div class="choose reveal" role="tablist" aria-label="Elegir final">
-      <button type="button" role="tab" id="tab-epilogo" aria-controls="final-epilogo" aria-selected="true" data-final="epilogo">
-        <b>Los que todavía recuerdan</b>
-        <span>Epílogo. Llegan los exnovios y nadie sale entero.</span>
-      </button>
-      <button type="button" role="tab" id="tab-alternativo" aria-controls="final-alternativo" aria-selected="false" data-final="alternativo" tabindex="-1">
-        <b>¿Quién dice que la familia es una mierda?</b>
-        <span>Final alternativo. Una versión adaptada con nuevos personajes.</span>
-      </button>
-    </div>
-  </section>
-
-  <!-- Final 1: epílogo -->
-  <div id="final-epilogo" class="panel" role="tabpanel" aria-labelledby="tab-epilogo">
-    <section class="wide" aria-labelledby="t-pers-1" style="margin-top:5rem">
-      <h2 id="t-pers-1" class="reveal">Los personajes</h2>
-      <p class="lede reveal">Quiénes están en la sala cuando la carta termina.</p>
-      <ul class="cast">
-        <li class="reveal"><b>Oduvaldo</b><span>Escribe la carta y enfrenta su culpa.</span></li>
-        <li class="reveal"><b>Genoveva</b><span>La mujer que fue escondida y humillada.</span></li>
-        <li class="reveal"><b>Rafael</b><span>Observa en silencio y nunca interviene.</span></li>
-        <li class="reveal"><b>Pablo, Joaquín y Jordan</b><span>Antiguos exnovios de Genoveva. Cada uno guarda resentimiento por haber sido abandonado y llega al final para confrontar a Oduvaldo y a Genoveva.</span></li>
-      </ul>
-    </section>
-
-    <hr class="rule wide">
-
-    <section class="wrap" aria-labelledby="t-epi">
-      <h2 id="t-epi" class="reveal">Epílogo: Los que todavía recuerdan</h2>
-      <p class="lede reveal">Continuación ficticia.</p>
-
-      <p class="scene reveal">Una sala en penumbra. Una sola lámpara. Oduvaldo baja la hoja. Su voz se quiebra en la última línea y se apaga.</p>
-      <p class="scene reveal">Genoveva sigue sentada. No dice nada. En un rincón, Rafael observa con las manos quietas sobre las rodillas.</p>
-
-      <hr class="pause">
-
-      <p class="line reveal"><span class="who">Oduvaldo</span>Eso es todo. Eso es todo lo que tengo.</p>
-      <p class="scene reveal">Silencio. Genoveva no levanta la vista.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>No voy a decir nada todavía.</p>
-
-      <p class="scene reveal">La puerta se abre sin que nadie haya llamado. Entran tres hombres. Pablo, primero. Joaquín, detrás. Jordan se queda en el umbral, como quien aún duda de haber venido.</p>
-
-      <p class="line reveal"><span class="who">Pablo</span>Qué bonita carta. Qué bien escribes. Qué fácil es llorar después.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>¿Quiénes son ustedes?</p>
-      <p class="line reveal"><span class="who">Joaquín</span>Pregúntale a ella. Ella sabe contar nuestros nombres.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>Pablo. Joaquín. Jordan. Ya me acuerdo de ustedes. No hacía falta venir.</p>
-      <p class="line reveal"><span class="who">Jordan</span><em>(en voz baja)</em> Sí hacía falta.</p>
-
-      <hr class="pause">
-
-      <p class="line reveal"><span class="who">Pablo</span>A mí me dijiste que necesitabas tiempo. Tres meses de tiempo. Y un día dejaste de contestar.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>Te lo dije mirándote a la cara.</p>
-      <p class="line reveal"><span class="who">Pablo</span>Mentira.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>No. Lo que pasa es que no era la respuesta que querías.</p>
-      <p class="line reveal"><span class="who">Joaquín</span>Y a mí me dejaste por teléfono. Por teléfono, Genoveva. Después de cuatro años.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>Cuatro años en los que nunca me preguntaste qué quería yo.</p>
-      <p class="line reveal"><span class="who">Joaquín</span>¡Te di todo!</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>Me diste lo que tú querías darme. No es lo mismo.</p>
-
-      <p class="scene reveal">Jordan avanza un paso. Mira a Oduvaldo, no a ella.</p>
-
-      <p class="line reveal"><span class="who">Jordan</span>Yo no vengo por ella. Vengo por ti. Porque yo también tuve que escuchar “mi familia no lo entendería”. Con otras palabras. Con otra cara. Pero la misma frase.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>Yo no soy como…</p>
-      <p class="line reveal"><span class="who">Jordan</span>Sí lo eres. Escribes mejor. Eso es todo.</p>
-
-      <hr class="pause">
-
-      <p class="line reveal"><span class="who">Pablo</span>¿Y tú, Oduvaldo? “La familia no es una mierda, yo fui la mierda.” Muy cómodo. Te declaras culpable para que nadie más pueda juzgarte.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>¿Eso crees? ¿Que es una táctica?</p>
-      <p class="line reveal"><span class="who">Pablo</span>Creo que es una costumbre.</p>
-      <p class="line reveal"><span class="who">Joaquín</span>Se casaron. Qué conveniente. Ella te perdonó. Ella siempre perdona al último que llega.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>Yo no he perdonado a nadie.</p>
-
-      <p class="scene reveal">Un silencio. Los cuatro la miran. Ella no se ha movido.</p>
-
-      <p class="line reveal"><span class="who">Jordan</span>Entonces dilo. Di de quién fue la culpa.</p>
-      <p class="line reveal"><span class="who">Pablo</span>Sí, dilo. Que quede claro de una vez quién abandonó a quién.</p>
-      <p class="line reveal"><span class="who">Joaquín</span>Quién mintió. Quién fingió. Quién jugó con todos.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>Basta. No le hablen así.</p>
-      <p class="line reveal"><span class="who">Pablo</span>¿Ahora la defiendes? ¿Ahora que es tuya?</p>
-
-      <hr class="pause">
-
-      <p class="line gen shout reveal"><span class="who">Genoveva</span>¡Basta!</p>
-
-      <p class="scene reveal">Se pone de pie. Es la primera vez que se mueve. La sala entera parece encogerse.</p>
-
-      <p class="line gen reveal"><span class="who">Genoveva</span>Escúchense. “Mía.” “Tuya.” “La que me dejó.” “La que perdoné.” Llevan una hora hablando de mí como si yo fuera una casa que se vendió, un objeto que cambió de dueño.</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>Nadie aquí me ha preguntado qué quiero. Ni en esta sala. Ni antes. Ni en esa carta.</p>
-      <p class="line reveal"><span class="who">Pablo</span>Genoveva, yo solo…</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>No. Se acabó. No le pertenezco a ninguno de ustedes. Ni a los que me dejaron, ni a los que me escondieron, ni a los que ahora vienen a reclamar lo que ya no les toca.</p>
-
-      <hr class="pause">
-
-      <p class="line reveal"><span class="who">Oduvaldo</span><em>(despacio)</em> Tiene razón.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>Yo la escondí porque era fea para mi familia. Ustedes la recuerdan como la que los dejó. Yo la llamé “mi redención”. Todos hemos hecho lo mismo: ponerle una cara que nos sirviera a nosotros. Ninguno la ha mirado de verdad.</p>
-      <p class="line reveal"><span class="who">Joaquín</span>No me compares contigo.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>No te comparo. Digo que ella se cansó de ser lo que cada uno necesitaba que fuera.</p>
-
-      <p class="scene reveal">En el rincón, Rafael levanta un poco la cabeza. Abre la boca. La cierra. Vuelve a mirar el suelo. Todos lo ven. Nadie le pregunta nada.</p>
-
-      <p class="line gen reveal"><span class="who">Genoveva</span><em>(sin mirarlo)</em> Tú también sabes todo esto, Rafael. Siempre lo supiste.</p>
-      <p class="scene reveal">Rafael no responde.</p>
-
-      <hr class="pause">
-
-      <p class="scene reveal">Genoveva toma su abrigo. Camina hacia la puerta sin apuro. Oduvaldo da un paso y se detiene a medio camino.</p>
-
-      <p class="line reveal"><span class="who">Oduvaldo</span>¿Vas a volver?</p>
-      <p class="line gen reveal"><span class="who">Genoveva</span>No lo sé. Y por primera vez, no tengo que explicártelo.</p>
-
-      <p class="scene reveal">La puerta se cierra. Quedan cuatro hombres bajo la lámpara y un quinto en la sombra.</p>
-
-      <p class="line reveal"><span class="who">Pablo</span>Esto es culpa tuya.</p>
-      <p class="line reveal"><span class="who">Joaquín</span>No. Es culpa de los dos.</p>
-      <p class="line reveal"><span class="who">Jordan</span>Es culpa de los tres.</p>
-      <p class="line reveal"><span class="who">Oduvaldo</span>De los cuatro.</p>
-
-      <p class="scene reveal">Se miran. Ninguno cede. Empiezan a hablar todos a la vez: acusaciones, nombres, fechas, reproches viejos. Las voces suben. La lámpara parpadea. Rafael, desde su rincón, cierra los ojos.</p>
-
-      <p class="end reveal">Por primera vez, nadie la siguió.</p>
-
-      <p class="switch-again reveal"><button class="text-link" type="button" data-goto="alternativo">Leer el otro final</button></p>
-    </section>
-  </div>
-
   <!-- Final 2: versión adaptada -->
-  <div id="final-alternativo" class="panel" role="tabpanel" aria-labelledby="tab-alternativo" hidden>
-    <section class="wide" aria-labelledby="t-pers-2" style="margin-top:5rem">
+  <div id="final-alternativo" class="panel">
+    <section class="wide" aria-labelledby="t-pers-2">
       <h2 id="t-pers-2" class="reveal">Los personajes</h2>
       <p class="lede reveal">En esta versión, otros acompañan a la pareja.</p>
       <ul class="cast">
@@ -588,7 +439,6 @@
 
       <p class="end reveal">¿Quién dice que la familia es una mierda?</p>
 
-      <p class="switch-again reveal"><button class="text-link" type="button" data-goto="epilogo">Leer el otro final</button></p>
     </section>
   </div>
 </main>
@@ -648,42 +498,6 @@
     leer.parentNode.hidden = true;
   });
 
-  /* Selector de final */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
-  function show(name, focusTab, scroll) {
-    tabs.forEach(function (t) {
-      var on = t.dataset.final === name;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      var panel = document.getElementById(t.getAttribute('aria-controls'));
-      panel.hidden = !on;
-      if (on) {
-        panel.classList.remove('entering'); void panel.offsetWidth; panel.classList.add('entering');
-        watch(panel);
-        if (focusTab) t.focus();
-      }
-    });
-    store('final', name);
-    if (history.replaceState) history.replaceState(null, '', '#final-' + name);
-    if (scroll) document.getElementById('t-finales').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { show(t.dataset.final); });
-    t.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        var next = tabs[(i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : tabs.length - 1)) % tabs.length];
-        show(next.dataset.final, true);
-      }
-    });
-  });
-  document.querySelectorAll('[data-goto]').forEach(function (b) {
-    b.addEventListener('click', function () { show(b.dataset.goto, false, true); });
-  });
-
-  var fromHash = location.hash.replace('#final-', '');
-  var initial = (fromHash === 'epilogo' || fromHash === 'alternativo') ? fromHash : (store('final') || 'epilogo');
-  if (initial !== 'epilogo') show(initial);
 })();
 </script>
 </body>

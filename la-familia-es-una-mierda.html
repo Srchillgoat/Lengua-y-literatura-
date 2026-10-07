@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La familia es una mierda</title>
+<meta name="description" content="Carta de Oduvaldo para Genoveva, con dos finales: el epílogo «Los que todavía recuerdan» y una versión adaptada con nuevos personajes.">
+<meta property="og:title" content="La familia es una mierda — Carta de Oduvaldo para Genoveva">
+<meta property="og:description" content="El que se perdió por esconderte y se encontró cuando te tuvo delante de todos.">
+<meta name="theme-color" content="#141113">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141113'/%3E%3Cpath d='M9 16h14M16 11l5 5-5 5-5-5z' stroke='%23b8443d' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #141113;
+    --bg-raise: #1c181a;
+    --ink: #e6dccb;
+    --ink-strong: #f3ead9;
+    --ink-dim: #a39a8b;
+    --red: #8a2420;
+    --red-ink: #cf6157;
+    --line: rgba(230, 220, 203, .14);
+    --display: "Cormorant Garamond", "Cormorant", Garamond, Georgia, serif;
+    --text: "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    color-scheme: dark;
+  }
+  :root[data-mode="night"] {
+    --bg: #0c0a0a;
+    --bg-raise: #131010;
+    --ink: #bfb4a0;
+    --ink-strong: #d2c7b2;
+    --ink-dim: #857c6e;
+    --red: #6a1d1a;
+    --red-ink: #b0564d;
+    --line: rgba(191, 180, 160, .11);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-color: var(--red) var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: clamp(1.12rem, 1.02rem + .45vw, 1.3rem);
+    line-height: 1.9;
+    caret-color: var(--red-ink);
+    transition: background-color .8s var(--ease-out), color .8s var(--ease-out);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Grano sutil para romper la planitud del fondo */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  body > * { position: relative; z-index: 1; }
+  ::selection { background: var(--red); color: var(--ink-strong); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--red); border: 3px solid var(--bg); border-radius: 10px; }
+  :focus-visible { outline: 1px solid var(--red-ink); outline-offset: 4px; }
+
+  .skip {
+    position: absolute; left: 1rem; top: -4rem; z-index: 20;
+    background: var(--bg-raise); color: var(--ink); padding: .5rem 1rem; text-decoration: none;
+  }
+  .skip:focus { top: 1rem; }
+
+  .wrap { width: min(100% - 2.5rem, 36rem); margin-inline: auto; }
+  .wide { width: min(100% - 2.5rem, 52rem); margin-inline: auto; }
+
+  /* Control de lectura */
+  .bar { position: fixed; top: 0; right: 0; z-index: 10; padding: max(.9rem, env(safe-area-inset-top)) 1rem .9rem; transition: transform .45s var(--ease-out), opacity .45s var(--ease-out); }
+  .bar.away { transform: translateY(-110%); opacity: 0; }
+  .ghost {
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    color: var(--ink-dim); border: 1px solid var(--line);
+    font: italic 1rem var(--text); padding: .4rem 1rem; cursor: pointer;
+    transition: color .25s, border-color .25s, transform .15s;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  }
+  .ghost:hover { color: var(--ink); border-color: var(--red); }
+  .ghost:active { transform: translateY(1px); }
+
+  /* Portada */
+  .cover {
+    min-height: 100vh; min-height: 100dvh;
+    display: grid; place-items: center; text-align: center;
+    padding: 6rem 1.25rem 5rem;
+  }
+  .cover h1 {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(3rem, 11vw, 6rem); line-height: .98; letter-spacing: -.02em;
+    color: var(--ink-strong); margin: 0 0 1.6rem; text-wrap: balance;
+  }
+  .cover h1 em { font-style: italic; color: var(--red-ink); }
+  .cover .sub { font-family: var(--display); font-style: italic; font-size: clamp(1.25rem, 3vw, 1.6rem); color: var(--ink-dim); margin: 0 0 3rem; }
+  .cover .tag { max-width: 24rem; margin: 0 auto; font-style: italic; text-wrap: balance; }
+  .ornament { display: block; width: 7rem; height: 12px; margin: 0 auto 2.2rem; color: var(--red-ink); }
+  .scroll-hint { margin-top: 4rem; font-size: .95rem; color: var(--ink-dim); text-decoration: none; font-style: italic; display: inline-block; transition: color .25s; }
+  .scroll-hint:hover { color: var(--ink); }
+
+  .rule { border: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent); margin: 6rem 0; }
+
+  h2 {
+    font-family: var(--display); font-weight: 400; color: var(--ink-strong);
+    font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; letter-spacing: -.01em;
+    text-align: center; margin: 0 0 1rem; text-wrap: balance;
+  }
+  .lede { text-align: center; color: var(--ink-dim); font-style: italic; margin: 0 0 4rem; text-wrap: balance; }
+  p { text-wrap: pretty; hyphens: auto; }
+
+  /* Carta */
+  .letter p { margin: 0 0 2.2rem; }
+  .letter .call { font-family: var(--display); font-style: italic; font-size: 1.6em; color: var(--ink-strong); margin-bottom: 1.4rem; }
+  .letter .opening::first-letter {
+    font-family: var(--display); float: left; font-size: 4.1em; line-height: .82;
+    padding: .06em .1em 0 0; color: var(--red-ink);
+  }
+  .letter-body.closed { max-height: 36rem; overflow: hidden; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+  .more { text-align: center; margin: 1rem 0 0; }
+  .btn {
+    background: transparent; color: var(--ink-strong); border: 1px solid var(--red);
+    padding: .85rem 2.2rem; font: italic 1.15rem var(--text); letter-spacing: .02em; cursor: pointer;
+    transition: background-color .3s var(--ease-out), border-color .3s, transform .15s;
+  }
+  .btn:hover { background: var(--red); border-color: var(--red); }
+  .btn:active { transform: scale(.98); }
+
+  .hl {
+    margin: 3.6rem 0 !important; text-align: center;
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: clamp(1.55rem, 4.2vw, 2.05rem); line-height: 1.3; color: var(--ink-strong); text-wrap: balance;
+  }
+  .hl::before { content: ""; display: block; width: 2.5rem; height: 1px; background: var(--red-ink); margin: 0 auto 1.4rem; }
+  .sign { margin-top: 4.5rem; text-align: right; font-style: italic; line-height: 2.4; }
+  .sign .who { font-family: var(--display); font-size: 1.5em; color: var(--red-ink); display: block; }
+
+  /* Selector de final */
+  .choose { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .choose button {
+    background: transparent; border: 0; color: var(--ink-dim); cursor: pointer; text-align: left;
+    padding: 1.8rem 1.6rem 2rem; font: inherit; position: relative;
+    transition: color .3s var(--ease-out), background-color .3s;
+  }
+  .choose button + button { border-left: 1px solid var(--line); }
+  .choose button::after {
+    content: ""; position: absolute; left: 1.6rem; right: 1.6rem; bottom: -1px; height: 1px;
+    background: var(--red-ink); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out);
+  }
+  .choose button[aria-selected="true"] { color: var(--ink); }
+  .choose button[aria-selected="true"]::after { transform: scaleX(1); }
+  .choose button:hover { background: var(--bg-raise); color: var(--ink); }
+  .choose b { display: block; font-family: var(--display); font-weight: 500; font-size: 1.55rem; line-height: 1.15; color: var(--ink-strong); margin-bottom: .5rem; }
+  .choose button[aria-selected="false"] b { color: var(--ink-dim); }
+  .choose span { font-style: italic; font-size: .98rem; line-height: 1.55; display: block; }
+
+  /* Personajes */
+  .cast { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem; }
+  .cast li { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+  .cast li.full { grid-column: 1 / -1; }
+  .cast b { display: block; font-family: var(--display); font-weight: 500; font-size: 1.6rem; color: var(--red-ink); line-height: 1.2; margin-bottom: .2rem; }
+  .cast span { color: var(--ink-dim); font-style: italic; line-height: 1.6; display: block; }
+
+  [hidden] { display: none !important; }
+  .panel.entering { animation: fadein .9s var(--ease-out); }
+  @keyframes fadein { from { opacity: 0; transform: translateY(10px); } }
+
+  /* Escena teatral */
+  .scene { font-style: italic; color: var(--ink-dim); text-align: center; margin: 0 auto 2.4rem; max-width: 30rem; }
+  .line { margin: 0 0 1.7rem; }
+  .line .who { display: block; font-variant-caps: all-small-caps; letter-spacing: .1em; font-size: 1.15rem; color: var(--red-ink); line-height: 1.4; }
+  .line.gen .who { color: var(--ink-strong); }
+  .line.shout { font-family: var(--display); font-size: 2em; font-style: italic; color: var(--ink-strong); line-height: 1.2; }
+  .line.shout .who { font-family: var(--text); font-style: normal; font-size: 1.05rem; }
+  .pause { display: block; width: 3rem; height: 1px; background: var(--line); margin: 3rem auto; border: 0; }
+  .end {
+    text-align: center; margin: 5.5rem 0 0; font-family: var(--display); font-style: italic;
+    font-size: clamp(1.9rem, 5.5vw, 2.6rem); line-height: 1.2; color: var(--ink-strong); text-wrap: balance;
+  }
+
+  /* Relato del final alternativo */
+  .tale p { margin: 0 0 1.5rem; }
+  .tale .say { padding-left: 1.4rem; color: var(--ink-strong); }
+  .tale .beat { text-align: center; font-style: italic; color: var(--ink-dim); margin: 2.6rem 0; }
+  .tale .hl { margin: 3rem 0 !important; }
+
+  .switch-again { text-align: center; margin-top: 5rem; }
+  .text-link { background: none; border: 0; padding: 0; font: italic 1.05rem var(--text); color: var(--ink-dim); cursor: pointer; text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: .3em; transition: color .25s; }
+  .text-link:hover { color: var(--ink); }
+
+  footer { text-align: center; color: var(--ink-dim); font-size: .95rem; padding: 7rem 1.25rem 4.5rem; font-style: italic; text-wrap: balance; }
+
+  /* Movimiento: el título se revela una sola vez; el resto apenas aparece */
+  .js .cover h1, .js .cover .sub, .js .cover .tag, .js .cover .ornament, .js .scroll-hint {
+    opacity: 0; filter: blur(8px); animation: focus 2.2s var(--ease-out) forwards;
+  }
+  .js .cover .sub { animation-delay: .6s; }
+  .js .cover .ornament { animation-delay: 1s; }
+  .js .cover .tag { animation-delay: 1.2s; }
+  .js .scroll-hint { animation-delay: 2s; }
+  @keyframes focus { to { opacity: 1; filter: blur(0); } }
+  .js .reveal { opacity: 0; transform: translateY(8px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .cover h1, .js .cover .sub, .js .cover .tag, .js .cover .ornament, .js .scroll-hint { animation: none; opacity: 1; filter: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .panel.entering { animation: none; }
+  }
+
+  @media (max-width: 600px) {
+    .rule { margin: 4.5rem 0; }
+    .choose { grid-template-columns: 1fr; }
+    .choose button + button { border-left: 0; border-top: 1px solid var(--line); }
+    .choose button { padding: 1.5rem .25rem 1.7rem; }
+    .choose button::after { left: .25rem; right: .25rem; }
+    .cast { grid-template-columns: 1fr; }
+    .letter-body.closed { max-height: 30rem; }
+    .tale .say { padding-left: .9rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#carta">Saltar a la carta</a>
+
+<div class="bar"><button id="modo" class="ghost" type="button" aria-pressed="false">Lectura nocturna</button></div>
+
+<header class="cover">
+  <div>
+    <h1>La familia<br>es una <em>mierda</em></h1>
+    <p class="sub">Carta de Oduvaldo para Genoveva</p>
+    <svg class="ornament" viewBox="0 0 112 12" aria-hidden="true"><path d="M0 6h46M66 6h46M56 1l5 5-5 5-5-5z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+    <p class="tag">El que se perdió por esconderte y se encontró cuando te tuvo delante de todos.</p>
+    <a class="scroll-hint" href="#carta">Comenzar a leer</a>
+  </div>
+</header>
+
+<main>
+  <section id="carta" class="letter wrap" aria-labelledby="t-carta">
+    <h2 id="t-carta" class="reveal">La carta</h2>
+    <p class="lede reveal">Escrita de noche, desde la culpa.</p>
+
+    <div id="cuerpo" class="letter-body closed">
+      <p class="call reveal">Genoveva…</p>
+
+      <p class="opening reveal">Te escribo desde el fondo de este crepúsculo ontológico que se ha convertido mi existencia desde el día en que el destino —ese demiurgo cruel y a la vez misericordioso— me empujó hacia la calle Larga cuando Santo Cristo guardaba sus propias farmacias y yo fingía un dolor de cabeza que no existía. Fui yo, en mi hybris prometeica y temblorosa, quien osó creer que podía poseer tu presencia sin quemarme las alas de la vergüenza más abyecta; fui yo quien, con torpe soberbia cartesiana, redujo tu ser a un secreto que debía enterrarse vivo, desconociendo que eras sujeto soberano, irreductible, trascendente, una otredad tan absoluta que aún hoy me deja sin aliento.</p>
+
+      <p class="reveal">Te amé con la intensidad de mil supernovas colapsando en el vacío, con la desesperación de un dios que descubre su propia inexistencia y aun así se arrodilla. Te amé aunque el mundo te mirara con el desprecio que reserva para lo que no comprende. Tu fealdad —esa fealdad inexplicable, ni gorda ni flaca, ni de piel podrida, sino simplemente tuya, única, devastadora— me destrozaba el pecho y al mismo tiempo me obligaba a contemplarte como se contempla un abismo sagrado. Cada mentira que te escupí —“están de viaje”, “no les gusta recibir visitas”, “prefiero la Tijuca”— fue un dardo envenenado de egoísmo, una traición ontológica, un acto de lesa majestad contra la sacralidad de lo que sentía y no me atrevía a defender delante de los míos.</p>
+
+      <p class="reveal">Mi familia, ese tribunal de bellezas impecables, de rostros de mármol y mujeres que podrían haber sido diosas de la pantalla, me recordaba a cada instante que yo era el único que no ponía la mesa con su cara. ¿Cómo iba a presentarte ante ellos? ¿Cómo iba a decir, con la voz temblando de amor y de cobardía, “esta es la mujer que amo”, cuando sabía que tu sola presencia iba a convertir mi vergüenza en espectáculo? Dos meses de mentiras diarias se acumularon en mi interior como una vorágine metafísica, un no-ser sartreano que devoraba la nada misma. Cada vez que te dejaba en la acera y me iba solo hacia Santo Cristo era como clavarte un cuchillo hasta el mango y después besar la herida con labios que aún sabían a bilis y a adoración.</p>
+
+      <p class="reveal">Cuando Marialva te vio y te nombró “la muchacha de la farmacia”, sentí que el abismo me susurraba con voz de sirena melancólica que no había redención posible. El jugo de caña me supo a ceniza de mis promesas rotas; tú corriste como si disputaras los cien metros hacia el olvido, y yo me quedé parado, miserable réplica de humano, contemplando el horror de haber sido el arquitecto de tu desolación y al mismo tiempo el único hombre que te había amado con esta ferocidad ciega.</p>
+
+      <p class="reveal">El día de mi cumpleaños, cuando la puerta se abrió y Marialva te jaló de la mano, se me nubló la vista no solo por vergüenza, sino porque te vi entrar y supe que el amor —ese animal enfermo y sagrado— me había vencido para siempre. Ahora estamos casados. Trabajo de mesero en el restaurante de Clodoaldo. Mi familia te aprecia, dice que eres amable, solícita, que me atiendes bien. Y yo te miro algunas noches mientras duermes y siento que el amor sigue siendo mi noumeno kantiano, mi esencia nouménica, la cosa-en-sí que me constituye y me desgarra y me salva al mismo tiempo.</p>
+
+      <p class="call reveal">Genoveva…</p>
+
+      <p class="reveal">te escribo esto porque ya no puedo seguir cargando tu nombre como un secreto podrido en la garganta. Porque cada mentira que te di sigue viva y me persigue en los sueños febriles donde tu rostro se descompone en mil fragmentos lacanianos de lo Real imposible y aun así sigue siendo el único rostro que deseo. Porque te amé con la desesperación de quien sabe que jamás será digno de ti y aun así te eligió.</p>
+
+      <p class="hl reveal">La familia no es una mierda.<br>Yo fui la mierda.</p>
+
+      <p class="reveal">Yo fui el demiurgo fallido que creó un mundo imperfecto y luego lo abandonó a su suerte. Yo fui el que, en afán de preservar una belleza heredada que nunca poseí del todo, te condené al eterno retorno de la vergüenza… y aun así</p>
+
+      <p class="hl reveal">te amé más que a mi propia dignidad.</p>
+
+      <p class="hl reveal">Perdóname, si es que el perdón aún habita en algún pliegue de tu ser herido.</p>
+
+      <p class="reveal">Perdóname con la misma violencia con que te oculté y con la misma ternura con que ahora te busco en la oscuridad. Porque te amo con la intensidad de mil colapsos estelares; te amo hasta el punto de aniquilarme por ti; te amo con la desesperación de un hombre que se arrancó el corazón y todavía lo tiene sangrando entre las manos, ofreciéndotelo entero, sucio, tembloroso, pero tuyo.</p>
+
+      <p class="sign reveal"><span class="who">Tu Oduvaldo,</span>el que se perdió por esconderte<br>y se encontró solo cuando te tuvo delante<br>de todos.</p>
+    </div>
+
+    <p class="more"><button id="leer" class="btn" type="button" aria-expanded="false" aria-controls="cuerpo">Leer la carta completa</button></p>
+  </section>
+
+  <hr class="rule wide">
+
+  <section class="wide" aria-labelledby="t-finales">
+    <h2 id="t-finales" class="reveal">Dos finales posibles</h2>
+    <p class="lede reveal">La misma carta, dos destinos. Elige cuál leer; puedes volver por el otro.</p>
+
+    <div class="choose reveal" role="tablist" aria-label="Elegir final">
+      <button type="button" role="tab" id="tab-epilogo" aria-controls="final-epilogo" aria-selected="true" data-final="epilogo">
+        <b>Los que todavía recuerdan</b>
+        <span>Epílogo. Llegan los exnovios y nadie sale entero.</span>
+      </button>
+      <button type="button" role="tab" id="tab-alternativo" aria-controls="final-alternativo" aria-selected="false" data-final="alternativo" tabindex="-1">
+        <b>¿Quién dice que la familia es una mierda?</b>
+        <span>Final alternativo. Una versión adaptada con nuevos personajes.</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Final 1: epílogo -->
+  <div id="final-epilogo" class="panel" role="tabpanel" aria-labelledby="tab-epilogo">
+    <section class="wide" aria-labelledby="t-pers-1" style="margin-top:5rem">
+      <h2 id="t-pers-1" class="reveal">Los personajes</h2>
+      <p class="lede reveal">Quiénes están en la sala cuando la carta termina.</p>
+      <ul class="cast">
+        <li class="reveal"><b>Oduvaldo</b><span>Escribe la carta y enfrenta su culpa.</span></li>
+        <li class="reveal"><b>Genoveva</b><span>La mujer que fue escondida y humillada.</span></li>
+        <li class="reveal"><b>Rafael</b><span>Observa en silencio y nunca interviene.</span></li>
+        <li class="reveal"><b>Pablo, Joaquín y Jordan</b><span>Antiguos exnovios de Genoveva. Cada uno guarda resentimiento por haber sido abandonado y llega al final para confrontar a Oduvaldo y a Genoveva.</span></li>
+      </ul>
+    </section>
+
+    <hr class="rule wide">
+
+    <section class="wrap" aria-labelledby="t-epi">
+      <h2 id="t-epi" class="reveal">Epílogo: Los que todavía recuerdan</h2>
+      <p class="lede reveal">Continuación ficticia.</p>
+
+      <p class="scene reveal">Una sala en penumbra. Una sola lámpara. Oduvaldo baja la hoja. Su voz se quiebra en la última línea y se apaga.</p>
+      <p class="scene reveal">Genoveva sigue sentada. No dice nada. En un rincón, Rafael observa con las manos quietas sobre las rodillas.</p>
+
+      <hr class="pause">
+
+      <p class="line reveal"><span class="who">Oduvaldo</span>Eso es todo. Eso es todo lo que tengo.</p>
+      <p class="scene reveal">Silencio. Genoveva no levanta la vista.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>No voy a decir nada todavía.</p>
+
+      <p class="scene reveal">La puerta se abre sin que nadie haya llamado. Entran tres hombres. Pablo, primero. Joaquín, detrás. Jordan se queda en el umbral, como quien aún duda de haber venido.</p>
+
+      <p class="line reveal"><span class="who">Pablo</span>Qué bonita carta. Qué bien escribes. Qué fácil es llorar después.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>¿Quiénes son ustedes?</p>
+      <p class="line reveal"><span class="who">Joaquín</span>Pregúntale a ella. Ella sabe contar nuestros nombres.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>Pablo. Joaquín. Jordan. Ya me acuerdo de ustedes. No hacía falta venir.</p>
+      <p class="line reveal"><span class="who">Jordan</span><em>(en voz baja)</em> Sí hacía falta.</p>
+
+      <hr class="pause">
+
+      <p class="line reveal"><span class="who">Pablo</span>A mí me dijiste que necesitabas tiempo. Tres meses de tiempo. Y un día dejaste de contestar.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>Te lo dije mirándote a la cara.</p>
+      <p class="line reveal"><span class="who">Pablo</span>Mentira.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>No. Lo que pasa es que no era la respuesta que querías.</p>
+      <p class="line reveal"><span class="who">Joaquín</span>Y a mí me dejaste por teléfono. Por teléfono, Genoveva. Después de cuatro años.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>Cuatro años en los que nunca me preguntaste qué quería yo.</p>
+      <p class="line reveal"><span class="who">Joaquín</span>¡Te di todo!</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>Me diste lo que tú querías darme. No es lo mismo.</p>
+
+      <p class="scene reveal">Jordan avanza un paso. Mira a Oduvaldo, no a ella.</p>
+
+      <p class="line reveal"><span class="who">Jordan</span>Yo no vengo por ella. Vengo por ti. Porque yo también tuve que escuchar “mi familia no lo entendería”. Con otras palabras. Con otra cara. Pero la misma frase.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>Yo no soy como…</p>
+      <p class="line reveal"><span class="who">Jordan</span>Sí lo eres. Escribes mejor. Eso es todo.</p>
+
+      <hr class="pause">
+
+      <p class="line reveal"><span class="who">Pablo</span>¿Y tú, Oduvaldo? “La familia no es una mierda, yo fui la mierda.” Muy cómodo. Te declaras culpable para que nadie más pueda juzgarte.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>¿Eso crees? ¿Que es una táctica?</p>
+      <p class="line reveal"><span class="who">Pablo</span>Creo que es una costumbre.</p>
+      <p class="line reveal"><span class="who">Joaquín</span>Se casaron. Qué conveniente. Ella te perdonó. Ella siempre perdona al último que llega.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>Yo no he perdonado a nadie.</p>
+
+      <p class="scene reveal">Un silencio. Los cuatro la miran. Ella no se ha movido.</p>
+
+      <p class="line reveal"><span class="who">Jordan</span>Entonces dilo. Di de quién fue la culpa.</p>
+      <p class="line reveal"><span class="who">Pablo</span>Sí, dilo. Que quede claro de una vez quién abandonó a quién.</p>
+      <p class="line reveal"><span class="who">Joaquín</span>Quién mintió. Quién fingió. Quién jugó con todos.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>Basta. No le hablen así.</p>
+      <p class="line reveal"><span class="who">Pablo</span>¿Ahora la defiendes? ¿Ahora que es tuya?</p>
+
+      <hr class="pause">
+
+      <p class="line gen shout reveal"><span class="who">Genoveva</span>¡Basta!</p>
+
+      <p class="scene reveal">Se pone de pie. Es la primera vez que se mueve. La sala entera parece encogerse.</p>
+
+      <p class="line gen reveal"><span class="who">Genoveva</span>Escúchense. “Mía.” “Tuya.” “La que me dejó.” “La que perdoné.” Llevan una hora hablando de mí como si yo fuera una casa que se vendió, un objeto que cambió de dueño.</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>Nadie aquí me ha preguntado qué quiero. Ni en esta sala. Ni antes. Ni en esa carta.</p>
+      <p class="line reveal"><span class="who">Pablo</span>Genoveva, yo solo…</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>No. Se acabó. No le pertenezco a ninguno de ustedes. Ni a los que me dejaron, ni a los que me escondieron, ni a los que ahora vienen a reclamar lo que ya no les toca.</p>
+
+      <hr class="pause">
+
+      <p class="line reveal"><span class="who">Oduvaldo</span><em>(despacio)</em> Tiene razón.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>Yo la escondí porque era fea para mi familia. Ustedes la recuerdan como la que los dejó. Yo la llamé “mi redención”. Todos hemos hecho lo mismo: ponerle una cara que nos sirviera a nosotros. Ninguno la ha mirado de verdad.</p>
+      <p class="line reveal"><span class="who">Joaquín</span>No me compares contigo.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>No te comparo. Digo que ella se cansó de ser lo que cada uno necesitaba que fuera.</p>
+
+      <p class="scene reveal">En el rincón, Rafael levanta un poco la cabeza. Abre la boca. La cierra. Vuelve a mirar el suelo. Todos lo ven. Nadie le pregunta nada.</p>
+
+      <p class="line gen reveal"><span class="who">Genoveva</span><em>(sin mirarlo)</em> Tú también sabes todo esto, Rafael. Siempre lo supiste.</p>
+      <p class="scene reveal">Rafael no responde.</p>
+
+      <hr class="pause">
+
+      <p class="scene reveal">Genoveva toma su abrigo. Camina hacia la puerta sin apuro. Oduvaldo da un paso y se detiene a medio camino.</p>
+
+      <p class="line reveal"><span class="who">Oduvaldo</span>¿Vas a volver?</p>
+      <p class="line gen reveal"><span class="who">Genoveva</span>No lo sé. Y por primera vez, no tengo que explicártelo.</p>
+
+      <p class="scene reveal">La puerta se cierra. Quedan cuatro hombres bajo la lámpara y un quinto en la sombra.</p>
+
+      <p class="line reveal"><span class="who">Pablo</span>Esto es culpa tuya.</p>
+      <p class="line reveal"><span class="who">Joaquín</span>No. Es culpa de los dos.</p>
+      <p class="line reveal"><span class="who">Jordan</span>Es culpa de los tres.</p>
+      <p class="line reveal"><span class="who">Oduvaldo</span>De los cuatro.</p>
+
+      <p class="scene reveal">Se miran. Ninguno cede. Empiezan a hablar todos a la vez: acusaciones, nombres, fechas, reproches viejos. Las voces suben. La lámpara parpadea. Rafael, desde su rincón, cierra los ojos.</p>
+
+      <p class="end reveal">Por primera vez, nadie la siguió.</p>
+
+      <p class="switch-again reveal"><button class="text-link" type="button" data-goto="alternativo">Leer el otro final</button></p>
+    </section>
+  </div>
+
+  <!-- Final 2: versión adaptada -->
+  <div id="final-alternativo" class="panel" role="tabpanel" aria-labelledby="tab-alternativo" hidden>
+    <section class="wide" aria-labelledby="t-pers-2" style="margin-top:5rem">
+      <h2 id="t-pers-2" class="reveal">Los personajes</h2>
+      <p class="lede reveal">En esta versión, otros acompañan a la pareja.</p>
+      <ul class="cast">
+        <li class="reveal"><b>Oduvaldo</b><span>Esconde a Genoveva por miedo a lo que diga su familia, hasta que aprende a dejar de mentir.</span></li>
+        <li class="reveal"><b>Genoveva</b><span>Trabaja en la farmacia de la calle Larga. Ama a Oduvaldo, pero no acepta que la oculten.</span></li>
+        <li class="reveal"><b>Marialva</b><span>La hermana de Oduvaldo. Es quien abre la puerta a Genoveva.</span></li>
+        <li class="reveal"><b>Escobar</b><span>Novio de Marialva. Tranquilo y respetuoso; le pide a Oduvaldo que decida por sí mismo.</span></li>
+        <li class="reveal"><b>Jordan</b><span>Amigo de los dos. Le dice a Oduvaldo que deje de tener miedo.</span></li>
+        <li class="reveal"><b>Brito</b><span>Antiguo novio de Genoveva. Sin rencor, le aconseja no dejar que otros decidan por ella.</span></li>
+        <li class="full reveal"><b>Clodoaldo</b><span>El hermano del restaurante, donde Oduvaldo termina trabajando y aprendiendo a valorar lo que tiene.</span></li>
+      </ul>
+    </section>
+
+    <hr class="rule wide">
+
+    <section class="wrap tale" aria-labelledby="t-alt">
+      <h2 id="t-alt" class="reveal">¿Quién dice que la familia es una mierda?</h2>
+      <p class="lede reveal">Versión adaptada con nuevos personajes.</p>
+
+      <p class="reveal">Oduvaldo gozaba de buena salud, pero un día comenzó a sentir un fuerte dolor de cabeza. Decidió ir a una farmacia de la calle Larga para comprar una aspirina. No sabía que aquella visita iba a cambiar su vida.</p>
+      <p class="reveal">Detrás del mostrador estaba Genoveva, una joven que trabajaba en la farmacia. Cuando Oduvaldo le explicó que quería una aspirina, ella le recomendó que tomara otra medicina porque la aspirina podía hacerle daño al estómago.</p>
+      <p class="reveal">Oduvaldo siguió su consejo, aunque la medicina tampoco le había servido demasiado.</p>
+      <p class="reveal">Como no había otros clientes, ambos comenzaron a conversar. Hablaron de dónde vivían y de sus vidas. Oduvaldo vivía en Santo Cristo, un barrio que conocía perfectamente y que consideraba su hogar. Genoveva vivía cerca de la farmacia.</p>
+      <p class="reveal">Al día siguiente, Oduvaldo volvió a la farmacia.</p>
+      <p class="say reveal">—¿Ya terminaste la medicina? —preguntó Genoveva.</p>
+      <p class="say reveal">—No. Solo vine a saludarte.</p>
+      <p class="reveal">Ella sonrió.</p>
+      <p class="reveal">Desde aquel momento comenzaron a acercarse. Después de varios encuentros se hicieron novios.</p>
+      <p class="reveal">Sin embargo, Oduvaldo tenía un problema: le daba vergüenza presentar a Genoveva ante su familia.</p>
+      <p class="reveal">Su familia era conocida por ser atractiva y tener una buena posición. Oduvaldo pensaba que sus hermanos y su madre juzgarían a Genoveva por su apariencia. Aunque él la quería, no podía dejar de pensar en lo que dirían los demás.</p>
+      <p class="reveal">Genoveva, por su parte, estaba enamorada de Oduvaldo.</p>
+      <p class="reveal">Pero antes de conocerlo, había tenido una relación con un joven llamado Brito. Brito había sido su novio durante un tiempo y, aunque la relación había terminado, todavía conservaba cierta preocupación por ella.</p>
+      <p class="reveal">Cuando Brito se enteró de que Genoveva estaba saliendo con Oduvaldo, decidió hablar con ella.</p>
+      <p class="say reveal">—No quiero meterme en tu vida —le dijo—, pero si ese hombre realmente te quiere, no debería avergonzarse de estar contigo.</p>
+      <p class="reveal">Genoveva se quedó pensando.</p>
+      <p class="say reveal">—Él me quiere —respondió—. El problema es su familia.</p>
+      <p class="say reveal">—Entonces no permitas que la opinión de otras personas decida por ti —contestó Brito.</p>
+      <p class="reveal">Genoveva agradeció el consejo. Ya no sentía nada romántico por Brito, pero reconocía que él había sido importante en una etapa de su vida.</p>
+      <p class="reveal">Mientras tanto, Oduvaldo continuaba ocultando la relación.</p>
+      <p class="reveal">Cuando Genoveva le preguntaba por su familia, él inventaba respuestas.</p>
+      <p class="reveal">Decía que sus hermanos estaban de viaje, que su madre no recibía visitas y que algún día la presentaría.</p>
+      <p class="reveal">Pero las mentiras comenzaron a acumularse.</p>
+      <p class="reveal">Oduvaldo sabía que no podía seguir ocultando la verdad para siempre.</p>
+
+      <hr class="pause">
+
+      <p class="reveal">Un día, mientras caminaba con Genoveva por la calle Larga, escuchó una voz que lo llamó por su verdadero nombre.</p>
+      <p class="say reveal">—¡Oduvaldo!</p>
+      <p class="reveal">Era su hermana Marialva.</p>
+      <p class="reveal">Oduvaldo intentó fingir que no había escuchado, pero Marialva se acercó.</p>
+      <p class="reveal">Genoveva la miró sorprendida.</p>
+      <p class="say reveal">—¿Es tu hermana?</p>
+      <p class="reveal">Oduvaldo no tuvo más remedio que presentarlas.</p>
+      <p class="say reveal">—Sí. Ella es Marialva.</p>
+      <p class="reveal">Marialva saludó amablemente a Genoveva, pero Oduvaldo estaba muy nervioso.</p>
+      <p class="say reveal">—¿Qué haces aquí? —preguntó él.</p>
+      <p class="say reveal">—Vine a comprar un regalo para Clodoaldo. Hoy es su cumpleaños.</p>
+      <p class="reveal">Genoveva observó la situación con desconfianza.</p>
+      <p class="reveal">Después de que Marialva se fue, preguntó:</p>
+      <p class="say reveal">—¿Por qué no me presentaste como tu novia?</p>
+      <p class="reveal">Oduvaldo intentó explicar la situación, pero Genoveva estaba dolida.</p>
+      <p class="say reveal">—¿Por qué tienes que esconderme?</p>
+      <p class="reveal">Oduvaldo no supo qué responder.</p>
+      <p class="reveal">En ese momento, apareció Jordan, un amigo que conocía a ambos. Jordan había observado desde hacía tiempo los problemas que tenían.</p>
+      <p class="say reveal">—Oduvaldo, tienes que dejar de tener miedo —le dijo—. Si realmente la quieres, tienes que defender tu relación.</p>
+      <p class="say reveal">—No es tan fácil.</p>
+      <p class="say reveal">—Nada que valga la pena es fácil —respondió Jordan—. Si tu familia te quiere, terminará entendiendo.</p>
+      <p class="reveal">Jordan también habló con Genoveva.</p>
+      <p class="say reveal">—No pienses que todo es culpa tuya. Oduvaldo tiene miedo de su familia y de lo que puedan pensar. Pero eso no significa que no te quiera.</p>
+      <p class="reveal">Genoveva escuchó en silencio.</p>
+
+      <hr class="pause">
+
+      <p class="reveal">Pasaron algunos días y Oduvaldo seguía sin saber cómo solucionar el problema.</p>
+      <p class="reveal">Mientras tanto, llegó el cumpleaños de Clodoaldo.</p>
+      <p class="reveal">La familia de Oduvaldo se reunió en el restaurante. Todos estaban bien vestidos, alegres y conversando.</p>
+      <p class="reveal">Oduvaldo se sentía fuera de lugar.</p>
+      <p class="reveal">Su hermana Marialva también estaba allí junto con su novio, Escobar.</p>
+      <p class="reveal">Escobar era un joven tranquilo y respetuoso. Él había notado que Oduvaldo estaba preocupado.</p>
+      <p class="say reveal">—¿Qué sucede? —le preguntó.</p>
+      <p class="say reveal">—Genoveva quería venir, pero no pude invitarla.</p>
+      <p class="reveal">Escobar lo miró seriamente.</p>
+      <p class="say reveal">—Si estás enamorado de ella, algún día tendrás que enfrentar esto.</p>
+      <p class="say reveal">—Tengo miedo de lo que diga mi familia.</p>
+      <p class="say reveal">—Entonces deja que ellos hablen. Tú eres quien tiene que decidir con quién quieres estar.</p>
+      <p class="reveal">Las palabras de Escobar hicieron pensar a Oduvaldo.</p>
+      <p class="reveal">Durante la fiesta, Marialva decidió contarle a la familia que Oduvaldo tenía novia.</p>
+      <p class="reveal">Todos comenzaron a hacer preguntas.</p>
+      <p class="say reveal">—¿Quién es?</p>
+      <p class="say reveal">—¿Dónde trabaja?</p>
+      <p class="say reveal">—¿Cómo se llama?</p>
+      <p class="reveal">Marialva explicó que era una joven que trabajaba en una farmacia de la calle Larga.</p>
+      <p class="reveal">La familia comenzó a bromear.</p>
+      <p class="reveal">Oduvaldo se sintió cada vez peor.</p>
+      <p class="reveal">No sabía qué decir.</p>
+
+      <hr class="pause">
+
+      <p class="reveal">Al día siguiente fue a buscar a Genoveva.</p>
+      <p class="reveal">Ella estaba molesta.</p>
+      <p class="say reveal">—¿Por qué no me llevaste?</p>
+      <p class="say reveal">—No sabía cómo hacerlo.</p>
+      <p class="say reveal">—Eso no es una respuesta.</p>
+      <p class="reveal">Oduvaldo se quedó callado.</p>
+      <p class="say reveal">—Te quiero —dijo finalmente.</p>
+      <p class="say reveal">—Entonces demuéstramelo.</p>
+      <p class="reveal">Oduvaldo le pidió perdón.</p>
+      <p class="reveal">Genoveva lo perdonó, pero todavía tenía dudas.</p>
+      <p class="reveal">Jordan volvió a hablar con Oduvaldo.</p>
+      <p class="say reveal">—No puedes seguir huyendo.</p>
+      <p class="say reveal">—Lo sé.</p>
+      <p class="say reveal">—Entonces haz algo antes de que sea demasiado tarde.</p>
+      <p class="reveal">Oduvaldo decidió hablar con Marialva.</p>
+      <p class="say reveal">—Estoy realmente enamorado de Genoveva.</p>
+      <p class="reveal">Marialva se sorprendió.</p>
+      <p class="say reveal">—Entonces, ¿por qué la escondes?</p>
+      <p class="say reveal">—Porque tengo miedo de que ustedes no la acepten.</p>
+      <p class="reveal">Marialva guardó silencio durante unos segundos.</p>
+      <p class="say reveal">—Oduvaldo, nuestra familia puede ser complicada, pero no puedes decidir por nosotros lo que vamos a pensar.</p>
+      <p class="reveal">Escobar, que había escuchado parte de la conversación, estuvo de acuerdo.</p>
+      <p class="say reveal">—Tu hermana tiene razón. Dale a tu familia la oportunidad de conocerla.</p>
+      <p class="reveal">Oduvaldo no sabía que aquella conversación cambiaría todo.</p>
+
+      <hr class="pause">
+
+      <p class="reveal">Pasaron algunos días.</p>
+      <p class="reveal">Llegó el cumpleaños de Oduvaldo.</p>
+      <p class="reveal">Como siempre, su familia preparó una fiesta en casa de su madre. Estaban sus hermanos, sus parejas, Marialva, Escobar y los demás familiares.</p>
+      <p class="reveal">Oduvaldo estaba nervioso.</p>
+      <p class="reveal">No quería pensar en Genoveva.</p>
+      <p class="reveal">La fiesta comenzó.</p>
+      <p class="reveal">Todos cantaron y conversaron.</p>
+      <p class="beat reveal">Entonces sonó el timbre.</p>
+      <p class="reveal">La madre de Oduvaldo fue a abrir la puerta.</p>
+      <p class="reveal">Oduvaldo levantó la mirada.</p>
+      <p class="reveal">No podía creer lo que estaba viendo.</p>
+      <p class="reveal">Marialva había llevado a Genoveva.</p>
+      <p class="say reveal">—Encontrarla no fue tan difícil —dijo Marialva.</p>
+      <p class="reveal">Oduvaldo se quedó paralizado.</p>
+      <p class="reveal">Genoveva también parecía nerviosa.</p>
+      <p class="beat reveal">Durante unos segundos nadie dijo nada.</p>
+      <p class="reveal">Entonces Oduvaldo se acercó y abrazó a Genoveva.</p>
+      <p class="reveal">Sus ojos se llenaron de lágrimas.</p>
+      <p class="reveal">Había pasado tanto tiempo preocupado por lo que su familia pensaría que nunca imaginó que podrían recibirla de aquella manera.</p>
+      <p class="reveal">Su madre se acercó y la saludó.</p>
+      <p class="reveal">Después sus hermanos también lo hicieron.</p>
+      <p class="reveal">Uno tras otro comenzaron a hablar con Genoveva.</p>
+      <p class="reveal">La tensión desapareció.</p>
+      <p class="reveal">Jordan observaba la escena desde un lado y sonrió.</p>
+      <p class="reveal">Brito, que había sabido de los problemas de Genoveva, también se alegró al saber que finalmente había encontrado la felicidad junto a Oduvaldo.</p>
+      <p class="reveal">Escobar miraba a Marialva, satisfecho de que todo hubiera salido bien.</p>
+      <p class="reveal">La familia terminó aceptando a Genoveva.</p>
+
+      <hr class="pause">
+
+      <p class="reveal">Con el tiempo, Oduvaldo y Genoveva se casaron.</p>
+      <p class="reveal">Oduvaldo consiguió trabajo como mesero en el restaurante de su hermano Clodoaldo. Al principio pensaba que ese trabajo no era para él, pero comenzó a esforzarse y terminó aprendiendo a valorar lo que tenía.</p>
+      <p class="reveal">Su hermano incluso le ofreció convertirse en socio del restaurante.</p>
+      <p class="reveal">Oduvaldo cambió.</p>
+      <p class="reveal">Ya no era aquel joven que inventaba mentiras para ocultar a la mujer que amaba.</p>
+      <p class="reveal">Ahora trabajaba, tenía responsabilidades y estaba junto a Genoveva.</p>
+      <p class="reveal">Su familia también terminó queriéndola.</p>
+      <p class="reveal">Todos decían que Genoveva era amable, atenta y que cuidaba muy bien de Oduvaldo.</p>
+      <p class="reveal">Brito siguió con su vida y dejó atrás aquella antigua relación.</p>
+      <p class="reveal">Jordan continuó siendo amigo de ambos y siempre estuvo dispuesto a ayudarlos cuando lo necesitaran.</p>
+      <p class="reveal">Escobar, junto a Marialva, se convirtió también en parte importante de aquella familia.</p>
+      <p class="reveal">Oduvaldo comprendió finalmente algo que antes no podía aceptar:</p>
+      <p class="reveal">había pasado tanto tiempo preocupado por las apariencias que casi pierde a la persona que realmente amaba.</p>
+      <p class="reveal">Durante mucho tiempo había pensado:</p>
+      <p class="hl reveal">“La familia es una mierda.”</p>
+      <p class="reveal">Pero ahora, mirando a Genoveva junto a él y a todos sus familiares reunidos, solo pudo pensar:</p>
+
+      <p class="end reveal">¿Quién dice que la familia es una mierda?</p>
+
+      <p class="switch-again reveal"><button class="text-link" type="button" data-goto="epilogo">Leer el otro final</button></p>
+    </section>
+  </div>
+</main>
+
+<footer>Ficción a partir del cuento «La familia es una mierda», de Rubem Fonseca.<br>Solo texto. Sin imágenes.</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+
+  function store(key, val) {
+    try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; }
+  }
+
+  /* Lectura nocturna */
+  var modo = document.getElementById('modo');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  function setMode(night) {
+    if (night) root.setAttribute('data-mode', 'night'); else root.removeAttribute('data-mode');
+    modo.setAttribute('aria-pressed', String(night));
+    modo.textContent = night ? 'Lectura normal' : 'Lectura nocturna';
+    meta.setAttribute('content', night ? '#0c0a0a' : '#141113');
+  }
+  setMode(store('modo') === 'night');
+  modo.addEventListener('click', function () {
+    var night = root.getAttribute('data-mode') !== 'night';
+    setMode(night);
+    store('modo', night ? 'night' : 'day');
+  });
+
+  /* El control se aparta al bajar leyendo y vuelve al subir */
+  var bar = document.querySelector('.bar'), lastY = 0;
+  addEventListener('scroll', function () {
+    var y = scrollY;
+    bar.classList.toggle('away', y > lastY && y > 300 && !bar.contains(document.activeElement));
+    lastY = y;
+  }, { passive: true });
+
+  /* Aparición discreta al hacer scroll */
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' }) : null;
+  function watch(scope) {
+    scope.querySelectorAll('.reveal:not(.in)').forEach(function (el) { io ? io.observe(el) : el.classList.add('in'); });
+  }
+  watch(document);
+
+  /* Carta completa */
+  var cuerpo = document.getElementById('cuerpo');
+  var leer = document.getElementById('leer');
+  leer.addEventListener('click', function () {
+    cuerpo.classList.remove('closed');
+    leer.setAttribute('aria-expanded', 'true');
+    leer.parentNode.hidden = true;
+  });
+
+  /* Selector de final */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function show(name, focusTab, scroll) {
+    tabs.forEach(function (t) {
+      var on = t.dataset.final === name;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      if (on) {
+        panel.classList.remove('entering'); void panel.offsetWidth; panel.classList.add('entering');
+        watch(panel);
+        if (focusTab) t.focus();
+      }
+    });
+    store('final', name);
+    if (history.replaceState) history.replaceState(null, '', '#final-' + name);
+    if (scroll) document.getElementById('t-finales').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t.dataset.final); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        var next = tabs[(i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : tabs.length - 1)) % tabs.length];
+        show(next.dataset.final, true);
+      }
+    });
+  });
+  document.querySelectorAll('[data-goto]').forEach(function (b) {
+    b.addEventListener('click', function () { show(b.dataset.goto, false, true); });
+  });
+
+  var fromHash = location.hash.replace('#final-', '');
+  var initial = (fromHash === 'epilogo' || fromHash === 'alternativo') ? fromHash : (store('final') || 'epilogo');
+  if (initial !== 'epilogo') show(initial);
+})();
+</script>
+</body>
+</html>
